@@ -1,3 +1,7 @@
+const {
+  updateProductService,
+  deleteProductService,
+} = require("../services/productServices");
 const Product = require("../../models/Product");
 
 const resolvers = {
@@ -11,28 +15,9 @@ const resolvers = {
       return await newProduct.save();
     },
 
-    deleteProduct: async (_, { id }) => {
-      const deletedProduct = await Product.findByIdAndDelete(id);
-      if (deletedProduct) {
-        return true;
-      }
-      return false;
-    },
+    deleteProduct: deleteProductService,
 
-    updateProduct: async (_, { id, ...updates }) => {
-      try {
-        const existingProduct = await Product.findById(id);
-        if (!existingProduct) {
-          throw new Error(`Product with ID ${id} not found.`);
-        }
-        return await Product.findByIdAndUpdate(id, updates, {
-          new: true,
-        });
-      } catch (error) {
-        console.error("Error updating product:", error.message);
-        throw new Error("Failed to update product. " + error.message);
-      }
-    },
+    updateProduct: updateProductService,
   },
 };
 
