@@ -20,9 +20,18 @@ const resolvers = {
     },
 
     updateProduct: async (_, { id, ...updates }) => {
-      return await Product.findByIdAndUpdate(id, updates, {
-        new: true,
-      });
+      try {
+        const existingProduct = await Product.findById(id);
+        if (!existingProduct) {
+          throw new Error(`Product with ID ${id} not found.`);
+        }
+        return await Product.findByIdAndUpdate(id, updates, {
+          new: true,
+        });
+      } catch (error) {
+        console.error("Error updating product:", error.message);
+        throw new Error("Failed to update product. " + error.message);
+      }
     },
   },
 };
