@@ -15,7 +15,7 @@ const products = [
   },
   {
     id: "3",
-    title: "Football",
+    title: "CricketBat",
     price: 19.95,
     category: "sports",
     inStock: true,
