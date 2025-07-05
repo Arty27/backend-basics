@@ -2,19 +2,18 @@ const {
   updateProductService,
   deleteProductService,
   addProductService,
+  getAllProductsService,
+  getProductByIdService,
 } = require("../services/productServices");
-const Product = require("../../models/Product");
 
 const resolvers = {
   Query: {
-    products: async () => await Product.find({}),
-    product: async (_, { id }) => await Product.findById(id),
+    products: getAllProductsService,
+    product: getProductByIdService,
   },
   Mutation: {
     addProduct: addProductService,
-
     deleteProduct: deleteProductService,
-
     updateProduct: updateProductService,
   },
 };
