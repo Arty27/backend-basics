@@ -1,6 +1,7 @@
 const {
   updateProductService,
   deleteProductService,
+  addProductService,
 } = require("../services/productServices");
 const Product = require("../../models/Product");
 
@@ -10,10 +11,7 @@ const resolvers = {
     product: async (_, { id }) => await Product.findById(id),
   },
   Mutation: {
-    addProduct: async (_, args) => {
-      const newProduct = new Product(args);
-      return await newProduct.save();
-    },
+    addProduct: addProductService,
 
     deleteProduct: deleteProductService,
 

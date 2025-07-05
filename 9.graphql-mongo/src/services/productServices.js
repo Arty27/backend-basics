@@ -30,7 +30,18 @@ const deleteProductService = async (_, { id }) => {
   }
 };
 
+const addProductService = async (_, args) => {
+  try {
+    const newProduct = new Product(args);
+    await newProduct.save();
+  } catch (error) {
+    console.error("Error while adding Product", error.message);
+    throw new Error("Failed to add the Product", error.message);
+  }
+};
+
 module.exports = {
   updateProductService,
   deleteProductService,
+  addProductService,
 };
