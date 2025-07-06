@@ -34,8 +34,7 @@ const CREATE_USER = gql`
 `;
 
 function App() {
-  const [user, setUser] = useState();
-  const [age, setAge] = useState();
+  const [newUser, setNewUser] = useState({ name: "", age: "" });
   const {
     data: usersData,
     error: usersError,
@@ -59,9 +58,21 @@ function App() {
     return <p>{usersError.message}</p>;
   }
 
+  const handleChange = (e) => {
+    console.log(e);
+    setNewUser((prev) => ({
+      ...prev,
+      [e.target.name]: e.target.value,
+    }));
+  };
+
   const handleCreateUser = async () => {
     await createUser({
-      variables: { name: user, age: Number(age), isMarried: false },
+      variables: {
+        name: newUser.name,
+        age: Number(newUser.age),
+        isMarried: false,
+      },
     });
   };
   return (
@@ -69,13 +80,17 @@ function App() {
       <div>
         <input
           type="text"
+          name="name"
+          value={newUser.name}
           placeholder="Name..."
-          onChange={(e) => setUser(e.target.value)}
+          onChange={handleChange}
         />
         <input
           type="number"
+          name="age"
+          value={newUser.age}
           placeholder="Age"
-          onChange={(e) => setAge(e.target.value)}
+          onChange={handleChange}
         />
         <button onClick={handleCreateUser}>Submit</button>
       </div>
@@ -91,7 +106,7 @@ function App() {
         ))}
       </div>
       <div>
-        Chosen User ={" "}
+        Chosen User =
         {userLoading ? <p>Loading User...</p> : userData.getUserById.name}
       </div>
     </>
