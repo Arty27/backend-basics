@@ -4,3 +4,4 @@ node_modules
 .env
 bookstore-api
 7.nodejs-auth
+./dist
