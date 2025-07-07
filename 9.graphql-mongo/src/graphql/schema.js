@@ -11,6 +11,10 @@ const typeDefs = gql`
     inStock: Boolean!
   }
 
+  type AuthPayload {
+    token: String
+  }
+
   type Query {
     products: [Product!]!
     product(id: ID!): Product
@@ -33,6 +37,8 @@ const typeDefs = gql`
       category: String
       inStock: Boolean
     ): Product
+
+    login(username: String!, password: String!): AuthPayload
   }
 `;
 

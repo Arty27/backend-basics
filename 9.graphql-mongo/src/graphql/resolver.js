@@ -1,3 +1,4 @@
+const { loginService } = require("../services/loginService");
 const {
   updateProductService,
   deleteProductService,
@@ -15,6 +16,7 @@ const resolvers = {
     addProduct: addProductService,
     deleteProduct: deleteProductService,
     updateProduct: updateProductService,
+    login: loginService,
   },
 };
 
