@@ -9,7 +9,10 @@ const {
 
 const resolvers = {
   Query: {
-    products: getAllProductsService,
+    products: async (parent, args, context) => {
+      console.log("from resolvers, ", context);
+      return getAllProductsService(parent, args, context);
+    },
     product: getProductByIdService,
   },
   Mutation: {

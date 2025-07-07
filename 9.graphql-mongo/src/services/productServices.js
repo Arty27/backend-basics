@@ -1,11 +1,14 @@
 const Product = require("../../models/Product");
 
-async function getAllProductsService(_) {
+async function getAllProductsService(_, __, context) {
   try {
+    if (!context.user) {
+      throw new Error("Not authorized, Please login!");
+    }
     return await Product.find({});
   } catch (error) {
     console.log("Error while getting all products", error.message);
-    throw new Error("Failed to get all products", error.message);
+    throw new Error("Failed to get all products");
   }
 }
 
