@@ -8,10 +8,11 @@ const configureCors = () => {
         "http://localhost:3000",
         "http://yourCustomDomain.com",
       ];
-      if (!origin || allowedOrigin.indexOf("origin") !== -1) {
+      if (!origin || allowedOrigin.indexOf(origin) !== -1) {
         callback(null, true);
+      } else {
+        callback(new Error("Not allowed by Cors"));
       }
-      callback(new Error("Not allowed by Cors"));
     },
     methods: ["GET", "POST", "PUT", "DELETE"],
     allowedHeaders: ["Content-Type", "Authorization", "Accept-Version"],
